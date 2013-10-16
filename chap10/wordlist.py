@@ -10,23 +10,30 @@ License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 import time
 
 
+
 def make_word_list1():
     """Reads lines from a file and builds a list using append.
 
     returns: list of strings
     """
     t = []
+    worddoc = open('words.txt')
+    for line in worddoc:
+        word = line.strip()
+        t.append(word)
     return t
-
-
+   
 def make_word_list2():
     """Reads lines from a file and builds a list using list +.
 
     returns: list of strings
     """
     t = []
+    worddoc=open('words.txt')
+    for line in worddoc:
+        word=line.strip()
+        t+=[word]
     return t
-
 
 start_time = time.time()
 t = make_word_list1()
