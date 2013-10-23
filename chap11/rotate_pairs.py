@@ -1,0 +1,33 @@
+def rotate_letter(letter, n):
+    if letter.isupper():
+        start = ord('A')
+    elif letter.islower():
+        start = ord('a')
+    else:
+        return letter
+    c = ord(letter) - start
+    i = (c + n) % 26 + start
+    return chr(i)
+
+
+def rotate_word(word, n):
+    res = ''
+    for letter in word:
+        res += rotate_letter(letter, n)
+    return res
+
+def word_dictionary():
+    d = dict()
+    words = open('words.txt')
+    for line in words:
+        word = line.strip().lower()
+        d[word] = word
+    return d
+    
+def rotate_pairs(word):
+    d=word_dictionary()    
+    for i in range(1,26):
+        wordrot=rotate_word(word,i)
+        if rotated in d:
+            print wordrot,i
+    
