@@ -1,24 +1,32 @@
-def word_list():
-    t = []
-    worddoc = open('words.txt')
-    for line in worddoc:
-        word = line.strip()
-        t.append(word)
-    return t
+def rotate_letter(letter, n):
+    if letter.isupper():
+        start = ord('A')
+    elif letter.islower():
+        start = ord('a')
+    else:
+        return letter
+    c = ord(letter) - start
+    i = (c + n) % 26 + start
+    return chr(i)
 
-def check_reverse(word1):
-    t=word_list()
-    for word2 in t:
-        if word1[::-1]==word2:
-            return True
-    
-def reverse_pair():
-    t=word_list()
-    reverses=[]
-    for word in t:
-        if check_reverse(word):
-            print word, word[::-1]
-            reverses.append(word)
+def rotate_word(word, n):
+    res = ''
+    for letter in word:
+        res += rotate_letter(letter, n)
+    return res
 
-reverse_pair()
+def word_dictionary():
+    d=dict()
+    allwords=open('words.txt')
+    for line in allwords:
+        word=line.strip()
+        d[word]=word
+    return d
+
+def rotate_pairs(word):
+    dictionary=word_dictionary()
+    for i in range(1,26):
+        newword=rotate_word(word,i)
+        
+
     
