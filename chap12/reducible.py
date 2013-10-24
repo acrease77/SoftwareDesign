@@ -8,9 +8,15 @@ def word_dictionary():
     d['i']='i'
     d['']=''
     return d
+def word_dictionary():
+    d=dict()
+    allwords=open('words.txt')
+    for line in allwords:
+        word=line.strip()
+        d[word]=word
+    return d
 
-def is_reducible(word,dic):
-    dic=word_dictionary()
+def is_reducible(word):
     memo={}
     reducers=[]
     memo['']=['']
@@ -20,11 +26,11 @@ def is_reducible(word,dic):
         shorter=is_reducible(reduced)
         if shorter:
             res.append(reduced)
-    memo[word]=shorter
-    return shorter
+    memo[word]=reducers
+    return reducers
         
 
-def reducers(word,dic):
+def reducers(word):
     dic=word_dictionary()
     reducedwords=[]
     for i in range(len(word)):
@@ -32,7 +38,15 @@ def reducers(word,dic):
         if reduceword in dic:
             reducedwords.append(reduceword)
     return reducedwords
-    
+
+def check_all():
+    dic=word_dictionary()
+    reducablelist=[]
+    for word in dic:
+        reducing=is_reducible(word)
+        if reducing!=[]:
+            reducablelist.append(word)
+    return res            
     
 def all_words_list(word):
     if len(word)==0:
@@ -42,7 +56,14 @@ def all_words_list(word):
     all_words_list(shorter[0])
 
 def longest():
-    allwords=word_dictionary()    
+    allwords=word_dictionary()
+    reducelong=[]
+    for word in allwords:
+        reducelong.append((len(word),word))
+    reducelong.sort()
+    all_words_list(reducelong[-1:])
+        
+      
     
   
                 
