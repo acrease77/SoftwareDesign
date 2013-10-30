@@ -71,8 +71,8 @@ def most_common(hist):
     t = []
     for key, value in hist.items():
 		t.append((value, key))
-    t.sort()
-    t.reverse()
+	t.sort()
+	t.reverse()
     return t
 
 
@@ -118,12 +118,12 @@ def random_word(hist):
     The probability of each word is proportional to its frequency.
     """
     t=[]
-    for word,freq in hist.items():
-        i=0
-        while i < freq:
-            t.append(word)
-            i+=1
-    return random.choice(t)
+	for word,freq in hist.items():
+		i=0
+		while i < freq:
+			t.append(word)
+			i+=1
+	return random.choice(t)
 
 
 if __name__ == '__main__':
