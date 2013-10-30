@@ -10,6 +10,9 @@ License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 import string
 import random
 
+prefix_suffix={}
+prefix=()
+
 
 def process_file(filename, skip_header=True):
     """Makes a histogram that contains the words from a file.
@@ -27,6 +30,8 @@ def process_file(filename, skip_header=True):
 
     for line in fp:
         process_line(line, hist)
+		for word in line.rstrip().split():
+			make_prefix_things(word)
     return hist
 
 
@@ -125,25 +130,34 @@ def random_word(hist):
 			i+=1
 	return random.choice(t)
 
+def make_prefix_things(word):
+	global prefix
+	if len(prefix)<2:
+		prefix=word,prefix
+		return
+	else:
+		prefixmap[prefix]=[word]
+	prefix=t[1:]+(word,)		
+	
+
+def make_gibberish():
+	start=random_word(hist)
+	i=0
+	global prefix_suffix
+	while i<100:
+		suffixes=prefix_suffix.get(start,None)
+		if suffixes==None:
+			make_gibberish(n-i)
+			i+=1
+			return
+		else:
+			word=random.choice(suffixes)
+			print word,
+			start=start[1:]+(word,)
+		
+
 
 if __name__ == '__main__':
     hist = process_file('emma.txt', skip_header=True)
-    print 'Total number of words:', total_words(hist)
-    print 'Number of different words:', different_words(hist)
-
-    t = most_common(hist)
-    print 'The most common words are:'
-    for freq, word in t[0:20]:
-        print word, '\t', freq
-
-    words = process_file('words.txt', skip_header=False)
-
-    diff = subtract(hist, words)
-    print "The words in the book that aren't in the word list are:"
-    for word in diff.keys():
-        print word,
-
-    print "\n\nHere are some random words from the book"
-    for i in range(100):
-        print random_word(hist),
+    print make_gibberish()
 
